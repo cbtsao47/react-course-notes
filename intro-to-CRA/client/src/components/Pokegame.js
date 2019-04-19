@@ -37,12 +37,12 @@ class Pokegame extends Component {
         <h1 className="Pokegame-text">Poke Game!</h1>
         <Pokedex
           pokemons={hand1}
-          totalExp={hand1Exp}
+          exp={hand1Exp}
           isWinner={hand1Exp > hand2Exp}
         />
         <Pokedex
           pokemons={hand2}
-          totalExp={hand2Exp}
+          exp={hand2Exp}
           isWinner={hand2Exp > hand1Exp}
         />
       </>
