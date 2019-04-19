@@ -22,3 +22,8 @@
 - A useful component is a reusable one. This often means making it configurable or customizable. This can be done with props.
 - props are for `configuring` the component
 - props are NOT mutable
+
+* ways to pass props
+  1. string
+  2. inside `{}`
+  3. with booleans, we can just pass the props without value, it defaults to `true`
