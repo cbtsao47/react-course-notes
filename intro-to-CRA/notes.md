@@ -37,3 +37,51 @@ or
   \*importing named exports
 - `import {name1,name2, name3 ...} from './example/namelist'`
 - Conventionally, default exports are used when there's a most likely thing to export
+
+## CRA conventions
+
+- Each React component goes in separate file
+  - `src/Car.js` for Car component
+  - `src/House.js` for House component
+  - extends `Component` instead of `React.Component`
+  - export the component as default
+  - Skeleton assumes top component is App in App.js
+
+## Assets and CRA
+
+- To include images and CSS, you can import them in JS files
+
+```
+import logo from './logo.svg';
+import './App.css';
+```
+
+- CSS
+
+* Make a CSS file for each React component
+  - House.css for House component
+* Import it at the top of House.js
+  - CRA will automatically load that CSS
+* Conventional to add `className='House' onto House div
+  - And use that as prefix for sub-items to style
+
+```
+    <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+    </div>
+```
+
+- images are stored inside `/src` as well mostly in `assets`
