@@ -57,3 +57,14 @@
 - `this` is very important
 - where's the context for `this`?
 - use `.bind(this)` to bind the context in the constructor of the function
+
+## State VS Props
+
+- State and props are the most important concepts in React
+- Both are POJO{}, state is mutable where props are immutable
+- State stores changing component data
+- Props stores component configuration
+
+## State as Props
+
+- A common pattern we will see over and over again is a stateful (smart) parent component passing down its state values as props to stateless ( dumb ) child components
