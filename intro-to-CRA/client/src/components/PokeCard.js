@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./PokeCard.css";
-const POKE_API =
-  "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
+const POKE_API = "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
+let numGen = number => (number <= 999 ? `00${number}`.slice(-3) : number);
 class PokeCard extends Component {
   static defaultProps = {
     name: "pikachu",
@@ -9,12 +9,14 @@ class PokeCard extends Component {
     id: 1
   };
   render() {
-    const { name, type, id } = this.props;
+    const { name, type, id, exp } = this.props;
+
     return (
       <div className="Pokecard">
-        <img src={`${POKE_API}${id}.png`} alt={name} />
-        <h2>{name}</h2>
-        <h2>{type}</h2>
+        <h1 className="Pokecard-title">{name}</h1>
+        <img src={`${POKE_API}${numGen(id)}.png`} alt={name} />
+        <div className="Pokecard-data">Type: {type}</div>
+        <div className="Pokecard-data">EXP: {exp}</div>
       </div>
     );
   }
