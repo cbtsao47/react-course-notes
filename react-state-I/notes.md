@@ -68,3 +68,26 @@
 ## State as Props
 
 - A common pattern we will see over and over again is a stateful (smart) parent component passing down its state values as props to stateless ( dumb ) child components
+
+## Update state based off of existing state
+
+- setState() is asynchronous...
+- so it's risky to assume previous call has finished when you call it. Also, React will sometimes batch(squash together) calls to setState together into one for performance reasons
+- it takes the last setState call
+
+* functional setState
+
+- setState callback form
+- `this.setState((prevState)=>{ prevState.score+1})`
+- the fact that you can pass a function to `this.setstate` lends itself nicely to a more advanced pattern called functional setState.
+- Basically you can describe your state updates abstractly as separate functions. Buy why?
+- it makes it easy to test state changes since you just need to test the plain function
+
+## Mutable Data Structures
+
+- objects/arrays/arrays of objects
+- use pure functions to make a copy
+- There is a slight efficiency cost due to the O(n) space/time required to make a copy, but it's almost always worth it to ensure that your app doesn't have extremely difficult to detect bugs due to mischevious side effects.
+- immutable state just means that there is an old state object and a new state object that are both snapshots in time.
+- the safest way to update state is to make a copy of it, and then call `this.setState` with the new copy.
+- This pattern is a good habit to follow
