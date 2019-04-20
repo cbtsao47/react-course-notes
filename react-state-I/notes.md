@@ -91,3 +91,67 @@
 - immutable state just means that there is an old state object and a new state object that are both snapshots in time.
 - the safest way to update state is to make a copy of it, and then call `this.setState` with the new copy.
 - This pattern is a good habit to follow
+
+## Designing State
+
+- Designing the state of a React application (or any modern web app) is a challenging skill
+
+* Minimize your state
+
+- Litmus test
+  - does x change? if not, x should not be a part of state. it should be a prop
+  - is x already captured by some other value y in state props ? derive it
+
+* Bad Example
+
+```
+this.state={
+  firstName:'Matt',
+  lastName:'Lane',
+  birthday:'1955-01-08T07:37:59.711Z',
+  age:64,
+  mood:'irate'
+}
+```
+
+- Fixed Example
+
+```
+console.log(this.props)
+{
+  firstName:'Matt',
+  lastName:'Lane',
+  birthday:'1955-01-08T07:37:59.711Z',
+  age:64
+}
+this.state={
+  mood:'insane'
+}
+```
+
+- State should live on the parent
+
+* support the downward data flow philosophy of React
+* this makes debugging easier, because the state is centralized. It's easier to predict where to find state
+
+- Todo Example
+
+```
+class TodoList extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      todos:[
+        {task:'do dishes',done:false,id:1}
+        {task:'do laundry',done:false,id:2}
+      ]
+    }
+  }
+  render(){
+    return(
+      <ul>
+      {this.state.todos.map(t=><Todo {...t}/>)}
+      </ul>
+    )
+  }
+```
