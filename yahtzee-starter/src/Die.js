@@ -3,7 +3,8 @@ import "./Die.css";
 
 class Die extends Component {
   static defaultProps = {
-    numWords: ["one", "two", "three", "four", "five", "six"]
+    numWords: ["one", "two", "three", "four", "five", "six"],
+    val: 1
   };
   constructor(props) {
     super(props);
@@ -13,10 +14,13 @@ class Die extends Component {
     this.props.handleClick(this.props.idx);
   }
   render() {
-    const { numWords, locked, val } = this.props;
+    const { numWords, locked, val, disabled, rolling } = this.props;
     let classes = `Die fas fa-dice-${numWords[val - 1]} fa-5x `;
     if (locked) classes += "Die-locked";
-    return <i className={classes} onClick={this.handleClick} />;
+    if (rolling && !locked) classes += "Die-rolling";
+    return (
+      <i className={classes} onClick={this.handleClick} disabled={disabled} />
+    );
   }
 }
 
