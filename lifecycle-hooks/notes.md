@@ -22,3 +22,5 @@
    - "mounting" is the first time the component is rendered to DOM.
    - a good place to load any data via AJAX or set up subscriptions/timers
 4. calling `this.setState()` will cause re-render
+5. componentDidUpdate()
+6. componentWillUnmount()
