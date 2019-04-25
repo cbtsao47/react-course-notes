@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Card from "./Card";
+import "./Deck.css";
 const API_BASE_URL = "https://deckofcardsapi.com/api/deck/";
 class Deck extends Component {
   constructor(props) {
     super(props);
     this.state = {
       deck: null,
-      drawn: []
+      drawn: [],
+      remaining: 52
     };
     this.getCard = this.getCard.bind(this);
   }
@@ -28,8 +31,10 @@ class Deck extends Component {
       }
       let card = cardRes.data.cards[0];
       this.setState(prevState => ({
+        remaining: cardRes.data.remaining,
         drawn: [
           ...prevState.drawn,
+
           {
             id: card.code,
             image: card.image,
@@ -38,15 +43,32 @@ class Deck extends Component {
         ]
       }));
     } catch (err) {
-      console.log("end of deck");
+      return { err };
     }
     // set state using the new card info
   }
   render() {
+    const cards = this.state.drawn.map(c => (
+      <Card name={c.name} image={c.image} key={c.id} />
+    ));
+    const remainingCards = !this.state.remaining
+      ? "There are no more cards!"
+      : `There are ${this.state.remaining} cards remaining`;
     return (
-      <div>
-        <h1>Card Dealer</h1>
-        <button onClick={this.getCard}>Get Card!</button>
+      <div className="Deck">
+        <h1 className="Deck-title">♠ Card Dealer ♠</h1>
+        <h2 className="Deck-title subtitle">
+          A little card game made with React
+        </h2>
+        <button
+          className="Deck-btn"
+          onClick={this.getCard}
+          disabled={!this.state.remaining}
+        >
+          Get Card!
+        </button>
+        <h2 className="Deck-title subtitle ">{remainingCards}</h2>
+        <div className="Deck-cardarea">{cards}</div>
       </div>
     );
   }
