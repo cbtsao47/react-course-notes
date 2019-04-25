@@ -12,7 +12,9 @@ class ZenQuote extends Component {
     axios
       .get("https://api.github.com/zen")
       .then(response => {
-        this.setState({ quote: response.data });
+        setTimeout(() => {
+          this.setState({ quote: response.data }).bind(this);
+        }, 3000);
       })
       .catch(err => err);
   }
