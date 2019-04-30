@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import "./Joke.css";
 class Joke extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.getColor = this.getColor.bind(this);
-  //   // this.getEmoji = this.getEmoji.bind(this);
-  // }
   getColor() {
     if (this.props.votes >= 15) {
       return "#4caf50";
