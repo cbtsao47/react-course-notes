@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Joke from "./Joke";
+import "./CheeZJokes.css";
+import uuid from "uuid/v4";
 class CheeZJokes extends Component {
   static defaultProps = {
     numJokesToGet: 10
@@ -9,6 +12,7 @@ class CheeZJokes extends Component {
     this.state = {
       jokes: []
     };
+    this.handleVote = this.handleVote.bind(this);
   }
   async componentDidMount() {
     let jokes = [];
@@ -16,18 +20,42 @@ class CheeZJokes extends Component {
       let res = await axios.get("https://icanhazdadjoke.com/", {
         headers: { Accept: "application/json" }
       });
-      jokes.push(res.data.joke);
+      jokes.push({ text: res.data.joke, votes: 0, id: uuid() });
     }
     this.setState({ jokes: jokes });
+  }
+  handleVote(id, change) {
+    this.setState(prevState => {
+      return {
+        jokes: prevState.jokes.map(j =>
+          j.id === id ? { ...j, votes: j.votes + change } : j
+        )
+      };
+    });
   }
 
   render() {
     return (
       <div className="JokeList">
-        <h1>Dad Jokes</h1>
+        <div className="JokeList-sidebar">
+          <h1 className="JokeList-title">
+            <span>Dad</span>Jokes
+          </h1>
+          <img
+            src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
+            alt=""
+          />
+          <button className="JokeList-getmore">New Joke</button>
+        </div>
         <div className="JokeList-jokes">
           {this.state.jokes.map(j => (
-            <div>{j}</div>
+            <Joke
+              key={j.id}
+              text={j.text}
+              votes={j.votes}
+              upvote={() => this.handleVote(j.id, 1)}
+              downvote={() => this.handleVote(j.id, -1)}
+            />
           ))}
         </div>
       </div>
